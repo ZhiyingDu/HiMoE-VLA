@@ -121,7 +121,7 @@ action_chunk = policy.infer(example)["actions"]
 Even the commands above can run infer, we still recommand using server and client for deployment.
 
 ## 🤝 Acknowledgements
-We are deeply grateful for the development of [openpi](https://github.com/Physical-Intelligence/openpi/tree/main) and [LeRobot](https://github.com/huggingface/lerobot), from which our project draws extensively. We extend our sincere thanks to all contributors to these libraries for their hard work and dedication.
+We are deeply grateful for the development of [openpi](https://github.com/Physical-Intelligence/openpi/tree/main), [LeRobot](https://github.com/huggingface/lerobot) and [DeepSeekMoE](https://github.com/deepseek-ai/DeepSeek-MoE), from which our project draws extensively. We extend our sincere thanks to all contributors to these libraries for their hard work and dedication.
 ## 📜 Citation
 If you find our work useful in your research, please consider citing our paper:
 ```
