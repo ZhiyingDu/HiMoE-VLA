@@ -1,7 +1,7 @@
 [project]
 name = "moevla"
 version = "0.1.0"
-description = "HiMoE-VLA open source repo"
+description = "HiMoE-VLA open-sourced repo"
 readme = "README.md"
 requires-python = "==3.11.*"
 license = { file = "LICENSE" }
