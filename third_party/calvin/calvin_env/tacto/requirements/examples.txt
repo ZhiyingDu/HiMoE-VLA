@@ -1,5 +1,0 @@
--r requirements.txt
-
-torch
-gym
-pybulletX >= 0.4.1

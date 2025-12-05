@@ -22,7 +22,7 @@ HiMoE-VLA is a new vision–language–action (VLA) framework built to effective
 ## 🔑 Installation
 When cloning this repository, remember to initialize the submodules:
 ```
-git clone --recurse-submodules ****
+git clone --recurse-submodules git@github.com:ZhiyingDu/HiMoE-VLA.git
 
 # If you’ve already cloned the project, you can fetch the submodules with:
 git submodule update --init --recursive
