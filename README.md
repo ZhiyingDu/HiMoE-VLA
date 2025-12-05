@@ -1,5 +1,5 @@
 <h1 align="center"><span
-    style="font-family: 'Courier New', Courier, monospace; font-size: 115%;"><span style="font-size: 130%;">H</span>iMoE-VLA:</span>:<br><span
+    style="font-family: 'Courier New', Courier, monospace; font-size: 115%;"><span style="font-size: 130%;">H</span>iMoE-VLA</span>:<br><span
     style="font-size:2.22rem;">Hierarchical Mixture-of-Experts for Generalist Vision–Language–Action Policies
     </span></h1>
 <p align="center"><a href=""><img src='https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white' alt='arXiv'></a>
