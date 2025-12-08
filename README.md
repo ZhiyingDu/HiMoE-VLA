@@ -16,7 +16,7 @@ HiMoE-VLA is a new vision–language–action (VLA) framework built to effective
 ## ✅ To-Do List
 - [x] Release the evaluation code
 - [ ] Release the dataset
-- [ ] Release the base and fine-tuned model checkpoints
+- [x] Release the base and fine-tuned model checkpoints
 - [x] Release the fine-tuning code
 - [ ] Release the multi-dataset sampler and pre-training code
 ## 🔑 Installation
@@ -46,7 +46,7 @@ We provide the following pretrained models:
 | Model | Description | Download |
 | --- | --- | --- |
 | Base model | Pretrained on OXE and ALOHA | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Base) |
-| Calvin D | Finetuned on Calvin D Joint Angle | [Download]() |
+| Calvin D | Finetuned on Calvin D Joint Angle | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-CALVIN-D) |
 | Libero 10 | Finetuned on Libero 10 | [Download]() |
 | Libero Goal | Finetuned on Libero Goal | [Download]() |
 | Libero Object | Finetuned on Libero Object | [Download]() |
@@ -125,5 +125,10 @@ We are deeply grateful for the development of [openpi](https://github.com/Physic
 ## 📜 Citation
 If you find our work useful in your research, please consider citing our paper:
 ```
-
+@article{du2025himoevla,
+      title={HiMoE-VLA: Hierarchical Mixture-of-Experts for Generalist Vision-Language-Action Policies}, 
+      author={Zhiying Du and Bei Liu and Yaobo Liang and Yichao Shen and Haidong Cao and Xiangyu Zheng and Zhiyuan Feng and Zuxuan Wu and Jiaolong Yang and Yu-Gang Jiang},
+      journal={arXiv preprint arXiv:2512.05693},
+      year={2025},
+}
 ```
