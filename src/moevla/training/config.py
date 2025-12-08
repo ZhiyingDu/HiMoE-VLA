@@ -2230,7 +2230,7 @@ _CONFIGS = [
     DatasetConfig(
         name="calvin_abc_eef",
         data=LeRobotCalvinEEFFullDataConfig(
-            repo_id="ZhiyingDu_Pi0_Dataset/calvin_abc_eef",
+            repo_id="calvin_abc_eef",
             base_config=DataConfig(
                 local_files_only=True,  
                 prompt_from_task=True,
@@ -2254,7 +2254,7 @@ _CONFIGS = [
     DatasetConfig(
         name="calvin_joint",
         data=LeRobotCalvinJointDataConfig(
-            repo_id="ZhiyingDu_Pi0_Dataset/calvin_joint",
+            repo_id="calvin_joint",
             base_config=DataConfig(
                 local_files_only=True,  
                 prompt_from_task=True,
