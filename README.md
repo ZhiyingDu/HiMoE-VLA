@@ -47,10 +47,10 @@ We provide the following pretrained models:
 | --- | --- | --- |
 | Base model | Pretrained on OXE and ALOHA | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Base) |
 | Calvin D | Finetuned on Calvin D Joint Angle | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-CALVIN-D) |
-| Libero 10 | Finetuned on Libero 10 | [Download]() |
-| Libero Goal | Finetuned on Libero Goal | [Download]() |
-| Libero Object | Finetuned on Libero Object | [Download]() |
-| Libero Spatial | Finetuned on Libero Spatial | [Download]() |
+| Libero 10 | Finetuned on Libero 10 | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Libero-10) |
+| Libero Goal | Finetuned on Libero Goal | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Libero-Goal) |
+| Libero Object | Finetuned on Libero Object | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Libero-Object) |
+| Libero Spatial | Finetuned on Libero Spatial | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Libero-Spatial) |
 
 
 ## 🏋️‍♂️ Training
