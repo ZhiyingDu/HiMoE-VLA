@@ -127,7 +127,7 @@ If you find our work useful in your research, please consider citing our paper:
 ```
 @article{du2025himoevla,
       title={HiMoE-VLA: Hierarchical Mixture-of-Experts for Generalist Vision-Language-Action Policies}, 
-      author={Zhiying Du and Bei Liu and Yaobo Liang and Yichao Shen and Haidong Cao and Xiangyu Zheng and Zhiyuan Feng and Zuxuan Wu and Jiaolong Yang and Yu-Gang Jiang},
+      author={Du, Zhiying and Liu, Bei and Liang, Yaobo and Shen, Yichao and Cao, Haidong and Zheng, Xiangyu and Feng, Zhiyuan and Wu, Zuxuan and Yang, Jiaolong and Jiang, Yu-Gang},
       journal={arXiv preprint arXiv:2512.05693},
       year={2025},
 }
