@@ -38,7 +38,6 @@ GIT_LFS_SKIP_SMUDGE=1 uv sync
 After the environment has been created, replace the relevant packages with our modified versions:
 ```
 cp -r third_party/lerobot .venv/lib/python3.11/site-packages/
-cp -r third_party/datasets .venv/lib/python3.11/site-packages/
 cp third_party/modeling_gemma.py .venv/lib/python3.11/site-packages/transformers/models/gemma
 ```
 ## 🤖 Model Checkpoints
