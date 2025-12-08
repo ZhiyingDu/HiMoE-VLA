@@ -44,7 +44,6 @@ def main(data_dir: str, raw_dataset_name: str, push_to_hub: bool = False):
         shutil.rmtree(output_path)
 
     # Create LeRobot dataset, define features to store
-    # OpenPi assumes that proprio is stored in `state` and actions in `action`
     # LeRobot assumes that dtype of image data is `image`
     dataset = LeRobotDataset.create(
         repo_id=raw_dataset_name,

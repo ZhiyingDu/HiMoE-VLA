@@ -30,13 +30,6 @@ class AssetsConfig:
     This can be used to load assets from a different checkpoint (e.g., base model checkpoint) or some other
     centralized location. For example, to load the norm stats for the Trossen robot from the base model checkpoint
     during fine-tuning, use:
-
-    ```
-    AssetsConfig(
-        assets_dir="s3://openpi-assets/checkpoints/pi0_base/assets",
-        asset_id="trossen",
-    )
-    ```
     """
 
     # Assets directory. If not provided, the config assets_dirs will be used. This is useful to load assets from
@@ -2220,34 +2213,6 @@ _CONFIGS = [
             ),
             data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1
         ),
-        # assets_base_dir = "/datadrive4/aloha_moevla_lerobot",
-    ),
-    DatasetConfig(
-        name="aloha_lemon_joint",
-        data=Aloha_DataConfig(
-            repo_id="aloha_lemon",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-            ),
-            data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1
-        ),
-        assets_base_dir = "./ZhiyingDu_Pi0_Dataset",
-    ),
-    # drop_state_ratio
-    DatasetConfig(
-        name="aloha_lemon_joint_drop_state_images",
-        data=Aloha_DataConfig(
-            repo_id="aloha_lemon",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-            ),
-            data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1,
-            drop_state_ratio=0.2,
-            drop_images_ratio=0.5,
-        ),
-        assets_base_dir = "./ZhiyingDu_Pi0_Dataset",
     ),
     DatasetConfig(
         name="xarm_eef",
@@ -2260,7 +2225,7 @@ _CONFIGS = [
             ),
             data_mask = [1] * 7 + [0] * 9 + [0] * 8,
         ),
-        assets_base_dir="/mnt/blob/ZhiyingDu_Pi0_Dataset/xArm_fvl"
+        assets_base_dir="/mnt/blob/xArm"
     ),
     DatasetConfig(
         name="calvin_abc_eef",
@@ -2273,50 +2238,18 @@ _CONFIGS = [
             ),
             data_mask = [1] * 7 + [0] * 9 + [0] * 8,
         ),
-        assets_base_dir="/data/yalia/zy",
     ),
     DatasetConfig(
         name="calvin_d_joint",
         data=LeRobotCalvinJointDataConfig(
-            repo_id="ZhiyingDu_Pi0_Dataset/calvin_d_joint",
+            repo_id="calvin_d_joint",
             base_config=DataConfig(
                 local_files_only=True,  
                 prompt_from_task=True,
                 action_sequence_keys=("actions",)
             ),
             data_mask = [0] * 8 + [1] * 8 + [0] * 8,
-            # drop_state_ratio=0.2,
-            # drop_images_ratio=0.5,
         ),
-        assets_base_dir="/data/yalia/zy",
-    ),
-    DatasetConfig(
-        name="calvin_d_joint_drop",
-        data=LeRobotCalvinJointDataConfig(
-            repo_id="ZhiyingDu_Pi0_Dataset/calvin_d_joint",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [0] * 8 + [1] * 8 + [0] * 8,
-            drop_state_ratio=0.2,
-            drop_images_ratio=0.5,
-        ),
-        assets_base_dir="/mnt/blob",
-    ),
-    DatasetConfig(
-        name="calvin_d_eef",
-        data=LeRobotCalvinEEFFullDataConfig(
-            repo_id="ZhiyingDu_Pi0_Dataset/calvin_d_eef",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-        ),
-        assets_base_dir="/data/yalia/zy",
     ),
     DatasetConfig(
         name="calvin_joint",
@@ -2329,20 +2262,6 @@ _CONFIGS = [
             ),
             data_mask = [0] * 8 + [1] * 8 + [0] * 8,
         ),
-        assets_base_dir="/data/yalia/zy",
-    ),
-    DatasetConfig(
-        name="calvin_eef",
-        data=LeRobotCalvinEEFFullDataConfig(
-            repo_id="ZhiyingDu_Pi0_Dataset/calvin",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-        ),
-        assets_base_dir="./",
     ),
     DatasetConfig(
         name="libero_10_no_noops_lerobot",
@@ -2356,79 +2275,6 @@ _CONFIGS = [
             data_mask = [1] * 7 + [0] * 9 + [0] * 8,
             is_libero_or_oxe=True,
         ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-    ),
-    DatasetConfig(
-        name="libero_10_no_noops_lerobot_drop",
-        data=LeRobotLiberoDataConfig(
-            repo_id="libero_10_no_noops",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-            drop_state_ratio=0.2,
-            drop_images_ratio=0.5,
-            is_libero_or_oxe=True,
-        ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-    ),
-    DatasetConfig(
-        name="libero_10_no_noops_lerobot_40G8",
-        data=LeRobotLiberoDataConfig(
-            repo_id="libero_10_no_noops",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-        ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-    ),
-    DatasetConfig(
-        name="libero_10_no_noops_lerobot_warm_40G8",
-        data=LeRobotLiberoDataConfig(
-            repo_id="libero_10_no_noops",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-        ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-    ),
-    DatasetConfig(
-        name="libero_10_no_noops_lerobot_drop_40G8",
-        data=LeRobotLiberoDataConfig(
-            repo_id="libero_10_no_noops",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-            drop_state_ratio=0.2,
-            drop_images_ratio=0.5,
-        ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-    ),
-    DatasetConfig(
-        name="libero_10_no_noops_lerobot_warm_drop_40G8",
-        data=LeRobotLiberoDataConfig(
-            repo_id="libero_10_no_noops",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("actions",)
-            ),
-            data_mask = [1] * 7 + [0] * 9 + [0] * 8,
-            drop_state_ratio=0.2,
-            drop_images_ratio=0.5,
-        ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
     ),
     DatasetConfig(
         name="libero_goal_no_noops_lerobot",
@@ -2442,8 +2288,6 @@ _CONFIGS = [
             data_mask = [1] * 7 + [0] * 9 + [0] * 8,
             is_libero_or_oxe=True,
         ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-        # assets_base_dir="/home/azureuser/v-zhiyingdu/data/local_data/lerobot/libero/physical-intelligence"
     ),
     DatasetConfig(
         name="libero_object_no_noops_lerobot",
@@ -2457,8 +2301,6 @@ _CONFIGS = [
             data_mask = [1] * 7 + [0] * 9 + [0] * 8,
             is_libero_or_oxe=True,
         ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-        # assets_base_dir="/home/azureuser/v-zhiyingdu/data/local_data/lerobot/libero/physical-intelligence"
     ),
     DatasetConfig(
         name="libero_spatial_no_noops_lerobot",
@@ -2472,8 +2314,6 @@ _CONFIGS = [
             data_mask = [1] * 7 + [0] * 9 + [0] * 8,
             is_libero_or_oxe=True,
         ),
-        assets_base_dir="/data/yalia/zy/ZhiyingDu_Pi0_Dataset/libero_sub",
-        # assets_base_dir="/home/azureuser/v-zhiyingdu/data/local_data/lerobot/libero/physical-intelligence"
     ),
     DatasetConfig(
         name="aloha_sim_transfer_cube_human",
@@ -2489,20 +2329,6 @@ _CONFIGS = [
         ),
     ),
     DatasetConfig(
-        name="aloha_transfer_cube_test",
-        data=Aloha_Sim_DataConfig(
-            repo_id="aloha_sim_transfer_cube_human",
-            base_config=DataConfig(
-                local_files_only=True,  
-                # prompt_from_task=True,
-                # action_sequence_keys=("actions",),
-            ),
-            default_prompt="Transfer cube",
-            data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1,
-        ),
-        assets_base_dir="/datadrive1/ZhiyingDu_Pi0_Dataset/aloha"
-    ),
-    DatasetConfig(
         name="aloha_sim_insertion_human",
         data=Aloha_Sim_DataConfig(
             repo_id="aloha/aloha_sim_insertion_human",
@@ -2516,20 +2342,6 @@ _CONFIGS = [
         ),
     ),
     DatasetConfig(
-        name="aloha_insertion_test",
-        data=Aloha_Sim_DataConfig(
-            repo_id="aloha_sim_insertion_human",
-            base_config=DataConfig(
-                local_files_only=True,  
-                # prompt_from_task=True,
-                # action_sequence_keys=("actions",),
-            ),
-            default_prompt="Transfer cube",
-            data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1,
-        ),
-        assets_base_dir="/datadrive1/ZhiyingDu_Pi0_Dataset/aloha"
-    ),
-    DatasetConfig(
         name="agibot_sim_joint",
         data=Aloha_DataConfig(
             repo_id="agibot_sim_joint",
@@ -2539,33 +2351,6 @@ _CONFIGS = [
                 action_sequence_keys=("action",),
             ),
             data_mask = [0] * 8 + [1] * 8 + [1] * 8,
-        ),
-        assets_base_dir="/datadrive4/agibot/lerobot/"
-    ),
-    DatasetConfig(
-        name="agibot_sim_eef",
-        data=Aloha_EEF_DataConfig(
-            repo_id="agibot_sim_eef",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("action",),
-            ),
-            data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1,
-        ),
-        assets_base_dir="/datadrive4/agibot/lerobot/"
-    ),
-    # example
-    DatasetConfig(
-        name="test_dataset",
-        data=Aloha_EEF_DataConfig(
-            repo_id="test_dataset",
-            base_config=DataConfig(
-                local_files_only=True,  
-                prompt_from_task=True,
-                action_sequence_keys=("action",),
-            ),
-            data_mask = [0] * 8 + [1] * 7 + [0] * 1 + [1] * 7 + [0] * 1,
         ),
     ),
 ]
@@ -2633,7 +2418,7 @@ class TrainConfig:
     logging_dir: str = 'logs'
 
     # deepspeed dir
-    deepspeed: str = 'src/openpi/training/zero2.json'
+    deepspeed: str = 'src/moevla/training/zero2.json'
 
     # pretrained_model_name_or_path
     pretrained_model_name_or_path: str = None
@@ -2693,15 +2478,15 @@ _TrainConfigs = [
         # optimizer_lr=1e-5,
         optimizer_weight_decay=1e-4,
         freeze_vision_encoder=True,
-        num_train_steps=200_000,
-        batch_size=2,
-        checkpoint_base_dir="./checkpoints"
+        num_train_steps=100_000,
+        batch_size=16,
+        checkpoint_base_dir="./pretrain"
     ),
     TrainConfig(
         name="calvin_d_joint",
         model=moevla.MoEVLAConfig(n_action_steps=10),
         config_name = ["calvin_d_joint"],
-        num_train_steps=100_000,
+        num_train_steps=50_000,
         batch_size=4,
         pretrained_model_name_or_path="./pretrain/pytorch_model.pth",
         checkpoint_base_dir="./checkpoints"
@@ -2711,8 +2496,8 @@ _TrainConfigs = [
         name="libero_10_no_noops_lerobot_finetune",
         model=moevla.MoEVLAConfig(n_action_steps=10),
         config_name = ["libero_10"],
-        num_train_steps=60_000,
-        batch_size=16,
+        num_train_steps=50_000,
+        batch_size=8,
         pretrained_model_name_or_path="./pretrain/pytorch_model.pth",
         checkpoint_base_dir="./checkpoints"
     ),
@@ -2721,7 +2506,7 @@ _TrainConfigs = [
         name="libero_goal_no_noops_lerobot_finetune",
         model=moevla.MoEVLAConfig(n_action_steps=10),
         config_name = ["libero_goal"],
-        num_train_steps=80_000,
+        num_train_steps=50_000,
         batch_size=8,
         pretrained_model_name_or_path="./pretrain/pytorch_model.pth",
         checkpoint_base_dir="./checkpoints"
@@ -2730,7 +2515,7 @@ _TrainConfigs = [
         name="libero_object_no_noops_lerobot_finetune",
         model=moevla.MoEVLAConfig(n_action_steps=10),
         config_name = ["libero_object"],
-        num_train_steps=80_000,
+        num_train_steps=50_000,
         batch_size=8,
         pretrained_model_name_or_path="./pretrain/pytorch_model.pth",
         checkpoint_base_dir="./checkpoints"
@@ -2739,7 +2524,7 @@ _TrainConfigs = [
         name="libero_spatial_no_noops_lerobot_finetune",
         model=moevla.MoEVLAConfig(n_action_steps=10),
         config_name = ["libero_spatial"],
-        num_train_steps=80_000,
+        num_train_steps=50_000,
         batch_size=4,
         pretrained_model_name_or_path="./pretrain/pytorch_model.pth",
         checkpoint_base_dir="./checkpoints"
@@ -2756,14 +2541,14 @@ def get_training_config(config_name: str) -> TrainConfig:
 
 def cli() -> DatasetConfig:
     parser = argparse.ArgumentParser(
-        description="选择配置并覆盖 DatasetConfig 中的某些字段"
+        description="Select a config and override certain fields in DatasetConfig"
     )
-    # 选择预设配置名称（必须在 _CONFIGS_DICT 中）
+    # Choose a preset config name (must exist in _CONFIGS_DICT)
     parser.add_argument(
         "--deepspeed",
         type=str,
         required=True,
-        help="deepspeed config path"
+        help="Path to DeepSpeed config"
     )
 
     parser.add_argument(
@@ -2771,7 +2556,7 @@ def cli() -> DatasetConfig:
         type=str,
         required=True,
         choices=list(_TrainConfigs_Dict.keys()),
-        help="config"
+        help="Config name"
     )
 
     # 
@@ -2779,25 +2564,24 @@ def cli() -> DatasetConfig:
         "--exp-name",
         type=str,
         required=True,
-        help="实验名称"
+        help="Experiment name"
     )
 
-    
     parser.add_argument(
         "--resume",
         type=bool,
         default=False,
-        help="如果设置，则覆盖 checkpoint 目录"
+        help="If set, override the checkpoint directory"
     )
 
-    # 如果还有其他需要覆盖的字段，也可以在这里添加对应参数
+    # Add more arguments here if you need to override additional fields
 
     args = parser.parse_args()
 
-    # 根据 config 名称从预设配置字典中取出 DatasetConfig
+    # Retrieve the DatasetConfig from the preset config dictionary based on the config name
     config = get_training_config(args.config)
 
-    # 用命令行参数覆盖原配置中的 exp_name 和 overwrite 字段
+    # Override exp_name and overwrite fields in the config using CLI arguments
     config = dataclasses.replace(config, deepspeed=args.deepspeed, exp_name=args.exp_name, resume=args.resume)
 
     return config

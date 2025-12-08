@@ -79,7 +79,7 @@ uv run scripts/compute_norm_stats.py --config-name calvin_d_joint
 
 Now, you can run training using the command below:
 ```
-accelerate launch scripts/train.py --deepspeed=scr/openpi/training/zero2.json --config=calvin_d_joint --exp-name=calvin_d_joint
+accelerate launch scripts/train.py --deepspeed=scr/moevla/training/zero2.json --config=calvin_d_joint --exp-name=calvin_d_joint
 ```
 **Note:** If you want to use wandbe, please update the wandbe key in line7 of train.py.
 
