@@ -17,7 +17,6 @@ import torch
 def to_tensor_batch(x):
     return torch.as_tensor(x).unsqueeze(0)  # Adds batch dimension
 
-# 假设 obs 是一个嵌套字典结构
 def tree_map(fn, tree):
     if isinstance(tree, dict):
         return {k: tree_map(fn, v) for k, v in tree.items()}
