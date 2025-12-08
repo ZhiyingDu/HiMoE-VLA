@@ -82,6 +82,7 @@ Now, you can run training using the command below:
 ```
 accelerate launch scripts/train.py --deepspeed=scr/openpi/training/zero2.json --config=calvin_d_joint --exp-name=calvin_d_joint
 ```
+**Note:** If you want to use wandbe, please update the wandbe key in line7 of train.py.
 
 ## ⚖️ Evaluation
 To effeciently manage environment, we use server and client to run evaluation. First, you can launch a model server by the command below:

@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from functools import partial
 import wandb
-wandb.login(key="7e22215eb5d3a686fb97dcb405e14683db4aa2c5")
+wandb.login(key="")
 
 import torch
 import torch.nn as nn
@@ -158,55 +158,28 @@ def main(config: TrainConfig):
 
     # prepare dataset
     dataset, num_frames, num_episodes = create_data_loader(config)
-    # check if there is multiple datasets
-    multi_dataset = False
-    if len(dataset._dataset._dataset._datasets) > 1:
-        logger.info("***** using batch_sampler *****")
-        batch_sampler = lerobot_dataset.MultipleDatasetWeightedDistributedBatchSampler(
-            dataset._dataset._dataset, # get the MultiLeRobotDataset 
-            batch_size=config.batch_size,
-            shuffle=True,
-            drop_last=True,
-            seed=config.seed,
-            num_replicas=accelerator.num_processes,
-            rank=accelerator.process_index,
-        )
-        multi_dataset = True
-        batch_sampler.set_epoch(0, 0)
-        mp_context = None
-        if config.num_workers > 0:
-            mp_context = multiprocessing.get_context("spawn")
-        data_loader = torch.utils.data.DataLoader(
-            dataset,
-            batch_sampler=batch_sampler,
-            num_workers=config.num_workers,
-            # multiprocessing_context=mp_context,
-            # persistent_workers=config.num_workers > 0,
-            pin_memory=True,
-        )
-    else:
-        logger.info("***** using sampler *****")
-        multi_dataset = False
-        sampler = torch.utils.data.DistributedSampler(
-            dataset,
-            num_replicas=accelerator.num_processes,
-            rank=accelerator.process_index,
-            shuffle=True,
-            drop_last=True,
-            seed=config.seed,
-        )
-        mp_context = None
-        if config.num_workers > 0:
-            mp_context = multiprocessing.get_context("spawn")
-        data_loader = torch.utils.data.DataLoader(
-            dataset,
-            sampler=sampler,
-            batch_size=config.batch_size,
-            num_workers=config.num_workers,
-            # multiprocessing_context=mp_context,
-            # persistent_workers=config.num_workers > 0,
-            pin_memory=True,
-        )
+    
+    logger.info("***** using sampler *****")
+    sampler = torch.utils.data.DistributedSampler(
+        dataset,
+        num_replicas=accelerator.num_processes,
+        rank=accelerator.process_index,
+        shuffle=True,
+        drop_last=True,
+        seed=config.seed,
+    )
+    mp_context = None
+    if config.num_workers > 0:
+        mp_context = multiprocessing.get_context("spawn")
+    data_loader = torch.utils.data.DataLoader(
+        dataset,
+        sampler=sampler,
+        batch_size=config.batch_size,
+        num_workers=config.num_workers,
+        multiprocessing_context=mp_context,
+        persistent_workers=config.num_workers > 0,
+        pin_memory=True,
+    )
 
     # Ensure 'train_micro_batch_size_per_gpu' is explicitly set to avoid DataLoader batch size being None,
     # which can cause training errors in DeepSpeed.
@@ -266,8 +239,7 @@ def main(config: TrainConfig):
                 
             resume_global_step = int(path.split("-")[1]) 
             first_epoch = resume_global_step // len(train_dataloader)
-            if multi_dataset:   
-                batch_sampler.set_epoch(first_epoch, resume_global_step)
+
         torch.cuda.empty_cache()
     
     global_step = resume_global_step
