@@ -2,10 +2,10 @@
     style="font-family: 'Courier New', Courier, monospace; font-size: 115%;"><span style="font-size: 130%;">H</span>iMoE-VLA</span>:<br><span
     style="font-size:2.22rem;">Hierarchical Mixture-of-Experts for Generalist Vision–Language–Action Policies
     </span></h1>
-<p align="center"><a href=""><img src='https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white' alt='arXiv'></a>
-<a href=''><img src='https://img.shields.io/badge/Project_Page-Website-green?logo=googlechrome&logoColor=white' alt='Project Page'></a>
-<a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a>
-<a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-yellow'></a>
+<p align="center"><a href="https://arxiv.org/abs/2512.05693"><img src='https://img.shields.io/badge/arXiv-Paper-red?logo=arxiv&logoColor=white' alt='arXiv'></a>
+<a href='https://github.com/ZhiyingDu/HiMoE-VLA/tree/main'><img src='https://img.shields.io/badge/Project_Page-Website-green?logo=googlechrome&logoColor=white' alt='Project Page'></a>
+<a href='https://huggingface.co/ZhiyingDu/models'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue'></a>
+<a href='https://huggingface.co/ZhiyingDu/datasets'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Data-yellow'></a>
 </p>
 <p align="center"><img src="assets/overview.png" width="100%"></p>
 HiMoE-VLA is a new vision–language–action (VLA) framework built to effectively handle the pronounced heterogeneity in modern large-scale robotic datasets. Existing VLA models struggle with the diversity of embodiments, action spaces, sensor setups, and control frequencies found in robotic demonstrations. HiMoE-VLA introduces a Hierarchical Mixture-of-Experts (HiMoE) action module that progressively abstracts away these differences across layers, enabling unified learning of shared robot behaviors. Across both simulated and real-world platforms, HiMoE-VLA consistently outperforms prior VLA baselines and exhibits stronger generalization to new robots and action spaces.
@@ -14,17 +14,17 @@ HiMoE-VLA is a new vision–language–action (VLA) framework built to effective
 🔥🔥 We released HiMoE-VLA,. -->
 
 ## ✅ To-Do List
-- [x] Release the base model checkpoint and evaluation code
+- [x] Release the evaluation code
 - [ ] Release the dataset
-- [ ] Release the fine-tuned model checkpoints
-- [ ] Release the fine-tuning code
+- [ ] Release the base and fine-tuned model checkpoints
+- [x] Release the fine-tuning code
 - [ ] Release the multi-dataset sampler and pre-training code
 ## 🔑 Installation
 When cloning this repository, remember to initialize the submodules:
 ```
 git clone --recurse-submodules git@github.com:ZhiyingDu/HiMoE-VLA.git
 
-# If you’ve already cloned the project, you can fetch the submodules with:
+# If you've already cloned the project, you can fetch the submodules with:
 git submodule update --init --recursive
 ```
 First, install uv using the following command:
@@ -45,7 +45,7 @@ We provide the following pretrained models:
 
 | Model | Description | Download |
 | --- | --- | --- |
-| Base model | Pretrained on OXE and Aloha | [Download]() |
+| Base model | Pretrained on OXE and ALOHA | [Download](https://huggingface.co/ZhiyingDu/HiMoE-VLA-Base) |
 | Calvin D | Finetuned on Calvin D Joint Angle | [Download]() |
 | Libero 10 | Finetuned on Libero 10 | [Download]() |
 | Libero Goal | Finetuned on Libero Goal | [Download]() |
