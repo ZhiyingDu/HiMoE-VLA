@@ -27,18 +27,18 @@ def create_dataset(config: _config.TrainConfig) -> tuple[_config.DataConfig, _da
             f"Expected exactly one dataset in training config {config.config_name}, "
             f"but found {len(config.total_configs)}: {config.total_configs}"
         )
-    data_config = config.total_configs[0].create(config.total_configs[0].assets_dirs, config.model)
+    data_config = config.total_configs[0].data.create(config.total_configs[0].assets_dirs, config.model)
     if data_config.repo_id is None:
         raise ValueError("Data config must have a repo_id")
     
-    dataset, num_frames, num_episodes = _data_loader.create_dataset(data_config, config.assets_dirs, config.model)
+    dataset, num_frames, num_episodes = _data_loader.create_dataset([data_config], [config.total_configs[0].assets_dirs], config.model, [1.0])
     dataset = _data_loader.TransformedDataset(
         dataset,
         [
-            *data_config.repack_transforms.inputs,
+            [*data_config.repack_transforms.inputs,
             *data_config.data_transforms.inputs,
             # Remove strings since they are not supported by JAX and are not needed to compute norm stats.
-            RemoveStrings(),
+            RemoveStrings(),]
         ],
         is_Prompt=True,
     )
@@ -46,9 +46,9 @@ def create_dataset(config: _config.TrainConfig) -> tuple[_config.DataConfig, _da
 
 
 def main(config_name: str, max_frames: int | None = None):
-    config = _config.get_config(config_name)
+    config = _config.get_training_config(config_name)
     data_config, dataset = create_dataset(config)
-    print("*************************", config.assets_dirs / data_config.repo_id)
+    print("*************************", config.total_configs[0].assets_dirs / data_config.repo_id)
     # assert 0 == 1
     num_frames = len(dataset)
     shuffle = False
@@ -57,16 +57,17 @@ def main(config_name: str, max_frames: int | None = None):
         num_frames = max_frames
         shuffle = True
 
+    batch_size = 4
     data_loader = torch.utils.data.DataLoader(
         dataset,
-        batch_size=4,
+        batch_size=batch_size,
         num_workers=16,
         shuffle=shuffle,
     )
 
     keys = ["state", "actions"]
     stats = {key: normalize.RunningStats() for key in keys}
-    for batch in tqdm.tqdm(data_loader, total=num_frames, desc="Computing stats"):
+    for batch in tqdm.tqdm(data_loader, total=num_frames//batch_size, desc="Computing stats"):
         for key in keys:
             values = np.asarray(batch[key][0])
             stats[key].update(values.reshape(-1, values.shape[-1]))

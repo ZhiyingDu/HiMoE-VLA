@@ -55,8 +55,7 @@ class TransformedDataset(Dataset[T_co]):
     def __len__(self) -> int:
         return len(self._dataset)
 
-
-def create_dataset(data_config: List[_config.DataConfig], assets_dirs: List[pathlib.Path], model_config: List[PreTrainedConfig], data_weights: List[float]) -> Dataset:
+def create_dataset(data_config: List[_config.DataConfig], assets_dirs: List[pathlib.Path], model_config: PreTrainedConfig, data_weights: List[float]) -> Dataset:
     """Create a dataset for training."""
     start_time = time.time()
     repo_ids = []
