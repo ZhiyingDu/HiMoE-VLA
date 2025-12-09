@@ -76,7 +76,7 @@ After completing the steps above, you need to compute normalization statistics f
 uv run scripts/compute_norm_stats.py --config-name calvin_d_joint
 ```
 **Note:** The dataset_mixture of calvin_d_joint must contain only one dataset.
-
+### Training
 Now, you can run training using the command below:
 ```
 accelerate launch scripts/train.py --deepspeed=scr/moevla/training/zero2.json --config=calvin_d_joint --exp-name=calvin_d_joint
