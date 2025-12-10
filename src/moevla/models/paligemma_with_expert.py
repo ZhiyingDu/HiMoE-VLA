@@ -189,7 +189,7 @@ class PaliGemmaWithExpertModel(PreTrainedModel):
         model_id = "google/paligemma-3b-pt-224"
         self.paligemma = PaliGemmaForConditionalGeneration.from_pretrained(
             model_id,
-            token="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",
+            token="your token",
         )
 
         self.gemma_expert = HiMoEModel(config=config.gemma_expert_config)
