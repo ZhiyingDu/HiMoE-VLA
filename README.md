@@ -125,10 +125,10 @@ We are deeply grateful for the development of [openpi](https://github.com/Physic
 ## 📜 Citation
 If you find our work useful in your research, please consider citing our paper:
 ```
-@article{du2025himoevla,
-      title={HiMoE-VLA: Hierarchical Mixture-of-Experts for Generalist Vision-Language-Action Policies}, 
-      author={Du, Zhiying and Liu, Bei and Liang, Yaobo and Shen, Yichao and Cao, Haidong and Zheng, Xiangyu and Feng, Zhiyuan and Wu, Zuxuan and Yang, Jiaolong and Jiang, Yu-Gang},
-      journal={arXiv preprint arXiv:2512.05693},
-      year={2025},
+@article{du2025himoe,
+  title={HiMoE-VLA: Hierarchical Mixture-of-Experts for Generalist Vision-Language-Action Policies},
+  author={Du, Zhiying and Liu, Bei and Liang, Yaobo and Shen, Yichao and Cao, Haidong and Zheng, Xiangyu and Feng, Zhiyuan and Wu, Zuxuan and Yang, Jiaolong and Jiang, Yu-Gang},
+  journal={arXiv preprint arXiv:2512.05693},
+  year={2025}
 }
 ```
