@@ -1039,6 +1039,8 @@ class MultiLeRobotDataset(torch.utils.data.Dataset):
         for dataset in self._datasets:
             self._accumulate_lengths.append(self._accumulate_lengths[-1] + len(dataset))
         print("self._accumulate_lengths:", self._accumulate_lengths)
+
+        faulthandler.enable()
         # self.stats = aggregate_stats(self._datasets)
 
     @property
@@ -1126,7 +1128,6 @@ class MultiLeRobotDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, index: int) -> dict[str, torch.Tensor]:
         # Determine which dataset to get an item from based on the index.
-        faulthandler.enable()
         if isinstance(index, int):
             dataset_id = bisect.bisect_right(self._accumulate_lengths, index) - 1
             idx = index - self._accumulate_lengths[dataset_id]
