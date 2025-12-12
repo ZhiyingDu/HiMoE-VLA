@@ -18,35 +18,6 @@ IMAGE_KEYS = (
 # This may need change if we release a small model.
 IMAGE_RESOLUTION = (224, 224)
 
-def resize_with_pad(images, width, height, pad_value=0):
-    # assume no-op when width height fits already
-    has_batch_dim = images.ndimension() == 4
-    if images.ndim != 4:
-        raise ValueError(f"(b,c,h,w) expected, but {images.shape}")
-
-    cur_height, cur_width = images.shape[1:3]
-
-    ratio = max(cur_width / width, cur_height / height)
-    resized_height = int(cur_height / ratio)
-    resized_width = int(cur_width / ratio)
-    resized_images = F.interpolate(
-        images, (images.shape[0], resized_height, resized_width, images.shape[3]), mode="bilinear", align_corners=False
-    )
-
-    # 填充图像到目标大小
-    pad_h0, remainder_h = divmod(height - resized_height, 2)
-    pad_h1 = pad_h0 + remainder_h
-    pad_w0, remainder_w = divmod(width - resized_width, 2)
-    pad_w1 = pad_w0 + remainder_w
-
-    # pad on left and top of image
-    padded_images = F.pad(resized_images, (pad_w0, pad_w1, pad_h0, pad_h1), mode='constant', value=pad_value)
-    if not has_batch_dim:
-        padded_images = padded_images.squeeze(0)  # 如果没有 batch 维度，移除它
-
-    return padded_images
-
-
 def from_dict(data: Dict[str, np.ndarray]):
     """This method defines the mapping between unstructured data (i.e., nested dict) to the structured Observation format."""
     # Ensure that tokenized_prompt and tokenized_prompt_mask are provided together.
@@ -86,12 +57,7 @@ def preprocess_observation(
     out_images = {}
 
     for key in image_keys:
-        image = observation["images"][key]
-        if image.shape[1:3] != image_resolution:
-            image = resize_with_pad(image, *image_resolution, pad_value=0)
-            # image = image_tools.resize_with_pad(image, *image_resolution)
-
-        image = image.permute(0, 3, 1, 2)
+        image = observation["images"][key].permute(0, 3, 1, 2)
 
         if train:
             # Convert from [-1, 1] to [0, 1] for augmax.
@@ -134,6 +100,25 @@ def preprocess_observation(
     )
 
 
+def to_device_recursive(data, device, dtype=None):
+    if isinstance(data, torch.Tensor):
+        if dtype is None:
+            return data.to(device, non_blocking=True)
+        else:
+            return data.to(device, dtype=dtype, non_blocking=True)
+
+    elif isinstance(data, dict):
+        return {k: to_device_recursive(v, device, dtype) for k, v in data.items()}
+
+    elif isinstance(data, list):
+        return [to_device_recursive(v, device, dtype) for v in data]
+
+    elif isinstance(data, tuple):
+        return tuple(to_device_recursive(v, device, dtype) for v in data)
+
+    else:
+        return data
+
 def preprocess_observation_and_to_device(
     observation: dict,
     *,
@@ -146,7 +131,8 @@ def preprocess_observation_and_to_device(
     """Preprocess the observations by performing image augmentations (if train=True), resizing (if necessary), and
     filling in a default image mask (if necessary).
     """
-    
+
+    observation = to_device_recursive(observation, device)
     if not set(image_keys).issubset(observation["images"]):
         image_list = list(observation["images"])
         raise ValueError(f"images dict missing keys: expected {image_keys}, got {image_list}")
@@ -156,12 +142,7 @@ def preprocess_observation_and_to_device(
     out_images = {}
 
     for key in image_keys:
-        image = observation["images"][key]
-        # print("image.shape[1:3] != image_resolution::", image.shape[1:3] != image_resolution)
-        if image.shape[1:3] != image_resolution:
-            image = resize_with_pad(image, *image_resolution, pad_value=0)
-
-        image = image.permute(0, 3, 1, 2)
+        image = observation["images"][key].permute(0, 3, 1, 2)
 
         if train:
             image = image / 2.0 + 0.5
@@ -194,9 +175,9 @@ def preprocess_observation_and_to_device(
     return dict(
         images=out_images,
         image_masks=out_masks,
-        state=observation["state"].to(device,dtype=dtype),
-        data_mask=observation["data_mask"].to(device),
-        tokenized_prompt=observation["tokenized_prompt"].to(device),
-        tokenized_prompt_mask=observation["tokenized_prompt_mask"].to(device),
+        state=observation["state"].to(dtype=dtype),
+        data_mask=observation["data_mask"],
+        tokenized_prompt=observation["tokenized_prompt"],
+        tokenized_prompt_mask=observation["tokenized_prompt_mask"],
     )
 
