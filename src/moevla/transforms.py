@@ -251,7 +251,7 @@ class DropStateAndImage:
                 base_image_mask = np.False_
             else:
                 base_image = in_images.get("base_0_rgb", None)
-                base_image_mask = np.True_
+                base_image_mask = np.bool_(in_masks.get("base_0_rgb", False))
 
             # drop gripper cameras
             if drop_gripper_image:
@@ -262,8 +262,8 @@ class DropStateAndImage:
             else:
                 left_wrist_image = in_images.get("left_wrist_0_rgb", None)
                 right_wrist_image = in_images.get("right_wrist_0_rgb", None)
-                left_wrist_image_mask = np.True_
-                right_wrist_image_mask = np.True_
+                left_wrist_image_mask = np.bool_(in_masks.get("left_wrist_0_rgb", False))
+                right_wrist_image_mask = np.bool_(in_masks.get("right_wrist_0_rgb", False))
 
             outputs["image"] = {
                 "base_0_rgb": base_image,
